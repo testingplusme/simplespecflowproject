@@ -12,25 +12,24 @@ namespace SimpleDI.TestSettings
         private readonly IObjectContainer objectContainer;
         private IWebDriver WebDriver;
         private WebDriverHelper webDriverHelper;
-        private readonly ScenarioContext scenarioContext;
 
-        public TestSettings(IObjectContainer objectContainer,ScenarioContext scenario)
+        public TestSettings(IObjectContainer objectContainer)
         {
             this.objectContainer = objectContainer;
-            this.scenarioContext = scenario;
         }
         
         [BeforeScenario]
         public void BeforeScenario()
         {
-            WebDriver = new ChromeDriver();
+           var driver = new ChromeDriver();
+           objectContainer.RegisterInstanceAs<IWebDriver>(driver);
         }
 
         [AfterScenario]
         public void AfterScenario()
         {
-           WebDriver.Close();
-           WebDriver.Dispose();
+           var driver = objectContainer.Resolve<IWebDriver>();
+           driver.Close();
            objectContainer.Dispose();
         }
     }
