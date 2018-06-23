@@ -15,7 +15,7 @@ pipeline {
 
             stage 'Run Tests'
 
-            bat 'nunit3-console PageObjectPatternPoll\\bin\\Release\\SimpleDI.dll'
+            bat 'nunit3-console SimpleDI\\bin\\Release\\SimpleDI.dll'
           }
         }
 
